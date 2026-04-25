@@ -77,6 +77,8 @@
     opacity: 0.4;
   }
 
+ 
+
   /* ======= NAV ======= */
   nav {
     position: fixed;
@@ -787,6 +789,66 @@
     color: var(--red);
   }
 
+  .code-window {
+  max-width: 800px;
+  margin: auto;
+  background: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: Consolas, monospace;
+}
+
+.code-window-bar {
+  display: flex;
+  align-items: center;
+  background: #2d2d2d;
+  padding: 10px;
+}
+
+.code-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+.code-filename {
+  margin-left: 10px;
+  color: #ccc;
+}
+
+.code-body {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: 10px;
+}
+
+.code-line {
+  display: flex;
+  white-space: pre;
+}
+
+.line-num {
+  width: 40px;
+  text-align: right;
+  margin-right: 10px;
+  color: #666;
+}
+
+.code-text {
+  color: #ddd;
+}
+
+.kw { color: #569cd6; }
+.cls { color: #4ec9b0; }
+.str { color: #ce9178; }
+.num { color: #b5cea8; }
+
   /* TABS */
   .tab-btn {
     background: none;
@@ -967,6 +1029,88 @@
             how Java handles increment timing. I learned that small details, like whether a counter updates before or
             after a process, are what make a system truly reliable and user-friendly.
           </p>
+
+
+          <!-- FLOATING CODE WINDOW -->
+  <div class="code-window">
+    <div class="code-window-bar">
+      <div class="code-dot red"></div>
+      <div class="code-dot yellow"></div>
+      <div class="code-dot green"></div>
+      <span class="code-filename">ATMTransactionCounterA_Jose.java</span>
+    </div>
+    <div class="code-body">
+      <div class="code-line"><span class="line-num">1</span><span class="code-text"><span class="kw">import</span> <span class="pln">java.util.Scanner;</span></span></div>
+      <div class="code-line"><span class="line-num">2</span><span class="code-text"><span class="kw">public class</span> <span class="cls">ATMTransactionCounterA_Jose</span> <span class="pln">{</span></span></div>
+      <div class="code-line"><span class="line-num">3</span><span class="code-text">  <span class="kw">public static void</span> <span class="fn">main</span><span class="pln">(String[] args) {</span></span></div>
+      <div class="code-line"><span class="line-num">4</span><span class="code-text">    <span class="typ">Scanner</span> <span class="pln">ans = </span><span class="kw">new</span> <span class="fn">Scanner</span><span class="pln">(System.in);</span></span></div>
+      <div class="code-line"><span class="line-num">5</span><span class="code-text">    <span class="kw">double</span> <span class="pln">initialBal = </span><span class="num">8000</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">6</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">7</span><span class="code-text">    <span class="pln">System.out.println(</span><span class="str">"====================================="</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">8</span><span class="code-text">    <span class="pln">System.out.println(</span><span class="str">"|| Welcome to A_Jose's ATM Machine ||"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">9</span><span class="code-text">    <span class="pln">System.out.println(</span><span class="str">"====================================="</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">10</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">11</span><span class="code-text">    <span class="kw">int</span> <span class="pln">input = </span><span class="num">0</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">12</span><span class="code-text">    <span class="kw">int</span> <span class="pln">tCount = </span><span class="num">0</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">13</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">14</span><span class="code-text">    <span class="kw">while</span> <span class="pln">(input != </span><span class="num">4</span><span class="pln">) {</span></span></div>
+      <div class="code-line"><span class="line-num">15</span><span class="code-text">      <span class="pln">System.out.println(</span><span class="str">"\n===== ATM MENU ====="</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">16</span><span class="code-text">      <span class="pln">System.out.println(</span><span class="str">"1. Check Balance"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">17</span><span class="code-text">      <span class="pln">System.out.println(</span><span class="str">"2. Deposit"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">18</span><span class="code-text">      <span class="pln">System.out.println(</span><span class="str">"3. Withdraw"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">19</span><span class="code-text">      <span class="pln">System.out.println(</span><span class="str">"4. Exit"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">20</span><span class="code-text">      <span class="pln">System.out.print(</span><span class="str">"Enter choice: "</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">21</span><span class="code-text">      <span class="pln">input = ans.</span><span class="fn">nextInt</span><span class="pln">();</span></span></div>
+      <div class="code-line"><span class="line-num">22</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">23</span><span class="code-text">      <span class="kw">switch</span> <span class="pln">(input) {</span></span></div>
+      <div class="code-line"><span class="line-num">24</span><span class="code-text">        <span class="kw">case</span> <span class="num">1</span><span class="pln">:</span></span></div>
+      <div class="code-line"><span class="line-num">25</span><span class="code-text">          <span class="pln">tCount++;</span></span></div>
+      <div class="code-line"><span class="line-num">26</span><span class="code-text">          <span class="pln">System.out.println(</span><span class="str">"Current Balance: "</span> <span class="pln">+ initialBal + </span><span class="str">" pesos"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">27</span><span class="code-text">          <span class="kw">break</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">28</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">29</span><span class="code-text">        <span class="kw">case</span> <span class="num">2</span><span class="pln">:</span></span></div>
+      <div class="code-line"><span class="line-num">30</span><span class="code-text">          <span class="pln">System.out.print(</span><span class="str">"Enter deposit amount: "</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">31</span><span class="code-text">          <span class="kw">double</span> <span class="pln">depAmount = ans.</span><span class="fn">nextDouble</span><span class="pln">();</span></span></div>
+      <div class="code-line"><span class="line-num">32</span><span class="code-text">          <span class="pln">initialBal += depAmount;</span></span></div>
+      <div class="code-line"><span class="line-num">33</span><span class="code-text">          <span class="pln">tCount++;</span></span></div>
+      <div class="code-line"><span class="line-num">34</span><span class="code-text">          <span class="pln">System.out.println(</span><span class="str">"Deposit successful! New Balance: "</span> <span class="pln">+ initialBal + </span><span class="str">" pesos"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">35</span><span class="code-text">          <span class="kw">break</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">36</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">37</span><span class="code-text">        <span class="kw">case</span> <span class="num">3</span><span class="pln">:</span></span></div>
+      <div class="code-line"><span class="line-num">38</span><span class="code-text">          <span class="pln">System.out.print(</span><span class="str">"Enter withdrawal amount: "</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">39</span><span class="code-text">          <span class="kw">double</span> <span class="pln">withAmount = ans.</span><span class="fn">nextDouble</span><span class="pln">();</span></span></div>
+      <div class="code-line"><span class="line-num">40</span><span class="code-text">          <span class="kw">if</span> <span class="pln">(withAmount > </span><span class="num">2000</span><span class="pln">) {</span></span></div>
+      <div class="code-line"><span class="line-num">41</span><span class="code-text">            <span class="pln">System.out.println(</span><span class="str">"Error: Max limit is 2,000 pesos."</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">42</span><span class="code-text">          <span class="pln">} </span><span class="kw">else if</span> <span class="pln">(withAmount > initialBal) {</span></span></div>
+      <div class="code-line"><span class="line-num">43</span><span class="code-text">            <span class="pln">System.out.println(</span><span class="str">"Error: Insufficient balance."</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">44</span><span class="code-text">          <span class="pln">} </span><span class="kw">else</span> <span class="pln">{</span></span></div>
+      <div class="code-line"><span class="line-num">45</span><span class="code-text">            <span class="pln">initialBal -= withAmount;</span></span></div>
+      <div class="code-line"><span class="line-num">46</span><span class="code-text">            <span class="pln">tCount++;</span></span></div>
+      <div class="code-line"><span class="line-num">47</span><span class="code-text">            <span class="pln">System.out.println(</span><span class="str">"Withdrawal successful! New Balance: "</span> <span class="pln">+ initialBal + </span><span class="str">" pesos"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">48</span><span class="code-text">          <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">49</span><span class="code-text">          <span class="kw">break</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">50</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">51</span><span class="code-text">        <span class="kw">case</span> <span class="num">4</span><span class="pln">:</span></span></div>
+      <div class="code-line"><span class="line-num">52</span><span class="code-text">          <span class="pln">System.out.println(</span><span class="str">"Total transactions done: "</span> <span class="pln">+ tCount);</span></span></div>
+      <div class="code-line"><span class="line-num">53</span><span class="code-text">          <span class="pln">System.out.println(</span><span class="str">"Goodbye!"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">54</span><span class="code-text">          <span class="kw">break</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">55</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">56</span><span class="code-text">        <span class="kw">default</span><span class="pln">:</span></span></div>
+      <div class="code-line"><span class="line-num">57</span><span class="code-text">          <span class="pln">System.out.println(</span><span class="str">"Invalid. Please choose from the menu."</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">58</span><span class="code-text">      <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">59</span><span class="code-text">    <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">60</span><span class="code-text">  <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">61</span><span class="code-text"><span class="pln">}</span></span></div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+  
+
+
           <div class="pdf-embed-wrap">
             <div class="pdf-embed-header">
               <span>SEATWORK2.PDF</span>
@@ -994,6 +1138,73 @@
             <br><br>
             <strong style="color:var(--red-bright);">Reflection:</strong> Building this seatwork showed me how much cleaner code is when you use separate methods instead of just cramming everything into the main one. I also realized that solid input validation is a must to keep the program from crashing whenever a user enters something unexpected.
           </p>
+
+
+          <!-- FLOATING CODE WINDOW -->
+  <div class="code-window">
+    <div class="code-window-bar">
+      <div class="code-dot red"></div>
+      <div class="code-dot yellow"></div>
+      <div class="code-dot green"></div>
+      <span class="code-filename">StudentAgeAnalyzerA_Jose.java</span>
+    </div>
+    <div class="code-body">
+      <div class="code-line"><span class="line-num">1</span><span class="code-text"><span class="kw">import</span> <span class="pln">java.util.Scanner;</span></span></div>
+      <div class="code-line"><span class="line-num">2</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">3</span><span class="code-text"><span class="kw">public class</span> <span class="cls">StudentAgeAnalyzerA_Jose</span> <span class="pln">{</span></span></div>
+      <div class="code-line"><span class="line-num">4</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">5</span><span class="code-text">  <span class="kw">static void</span> <span class="fn">ageCategory</span><span class="pln">(String name, </span><span class="kw">int</span><span class="pln"> age) {</span></span></div>
+      <div class="code-line"><span class="line-num">6</span><span class="code-text">    <span class="typ">String</span><span class="pln"> category;</span></span></div>
+      <div class="code-line"><span class="line-num">7</span><span class="code-text">    <span class="kw">if</span> <span class="pln">(</span><span class="num">0</span> <span class="pln"><= age && age <=</span> <span class="num">12</span><span class="pln">) {</span></span></div>
+      <div class="code-line"><span class="line-num">8</span><span class="code-text">      <span class="pln">category = </span><span class="str">"Child"</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">9</span><span class="code-text">    <span class="pln">} </span><span class="kw">else if</span> <span class="pln">(</span><span class="num">13</span> <span class="pln"><= age && age <=</span> <span class="num">19</span><span class="pln">) {</span></span></div>
+      <div class="code-line"><span class="line-num">10</span><span class="code-text">      <span class="pln">category = </span><span class="str">"Teenager"</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">11</span><span class="code-text">    <span class="pln">} </span><span class="kw">else if</span> <span class="pln">(</span><span class="num">20</span> <span class="pln"><= age && age <=</span> <span class="num">59</span><span class="pln">) {</span></span></div>
+      <div class="code-line"><span class="line-num">12</span><span class="code-text">      <span class="pln">category = </span><span class="str">"Adult"</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">13</span><span class="code-text">    <span class="pln">} </span><span class="kw">else if</span> <span class="pln">(</span><span class="num">60</span> <span class="pln"><= age) {</span></span></div>
+      <div class="code-line"><span class="line-num">14</span><span class="code-text">      <span class="pln">category = </span><span class="str">"Senior Citizen"</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">15</span><span class="code-text">    <span class="pln">} </span><span class="kw">else</span> <span class="pln">{</span></span></div>
+      <div class="code-line"><span class="line-num">16</span><span class="code-text">      <span class="pln">System.out.println(</span><span class="str">"Invalid age!"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">17</span><span class="code-text">      <span class="kw">return</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">18</span><span class="code-text">    <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">19</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">20</span><span class="code-text">    <span class="pln">System.out.print(</span><span class="str">"\nHello, "</span> <span class="pln">+ name +</span></span></div>
+      <div class="code-line"><span class="line-num">21</span><span class="code-text">      <span class="str">"! Your age of "</span> <span class="pln">+ age +</span></span></div>
+      <div class="code-line"><span class="line-num">22</span><span class="code-text">      <span class="str">" belongs to the ["</span> <span class="pln">+ category +</span> <span class="str">"] category."</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">23</span><span class="code-text">  <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">24</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">25</span><span class="code-text">  <span class="kw">public static void</span> <span class="fn">main</span><span class="pln">(String[] args) {</span></span></div>
+      <div class="code-line"><span class="line-num">26</span><span class="code-text">    <span class="typ">Scanner</span> <span class="pln">ans = </span><span class="kw">new</span> <span class="fn">Scanner</span><span class="pln">(System.in);</span></span></div>
+      <div class="code-line"><span class="line-num">27</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">28</span><span class="code-text">    <span class="pln">System.out.println(</span><span class="str">"=============================================="</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">29</span><span class="code-text">    <span class="pln">System.out.println(</span><span class="str">"|| Welcome to A_Jose's Student Age Analyzer ||"</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">30</span><span class="code-text">    <span class="pln">System.out.println(</span><span class="str">"=============================================="</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">31</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">32</span><span class="code-text">    <span class="typ">String</span> <span class="pln">sName;</span></span></div>
+      <div class="code-line"><span class="line-num">33</span><span class="code-text">    <span class="kw">int</span> <span class="pln">sAge;</span></span></div>
+      <div class="code-line"><span class="line-num">34</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">35</span><span class="code-text">    <span class="pln">System.out.print(</span><span class="str">"\nEnter student name: "</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">36</span><span class="code-text">    <span class="pln">sName = ans.</span><span class="fn">nextLine</span><span class="pln">().</span><span class="fn">trim</span><span class="pln">();</span></span></div>
+      <div class="code-line"><span class="line-num">37</span><span class="code-text">    <span class="pln">System.out.print(</span><span class="str">"Enter student age: "</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">38</span><span class="code-text">    <span class="pln">sAge = ans.</span><span class="fn">nextInt</span><span class="pln">();</span></span></div>
+      <div class="code-line"><span class="line-num">39</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">40</span><span class="code-text">    <span class="kw">while</span> <span class="pln">(sAge < </span><span class="num">0</span><span class="pln">) {</span></span></div>
+      <div class="code-line"><span class="line-num">41</span><span class="code-text">      <span class="pln">System.out.print(</span><span class="str">"Please input a valid age: "</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">42</span><span class="code-text">      <span class="pln">sAge = ans.</span><span class="fn">nextInt</span><span class="pln">();</span></span></div>
+      <div class="code-line"><span class="line-num">43</span><span class="code-text">    <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">44</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">45</span><span class="code-text">    <span class="fn">ageCategory</span><span class="pln">(sName, sAge);</span></span></div>
+      <div class="code-line"><span class="line-num">46</span><span class="code-text">  <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">47</span><span class="code-text"><span class="pln">}</span></span></div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+
+
           <div class="pdf-embed-wrap">
             <div class="pdf-embed-header">
               <span>SEATWORK3.PDF</span>
@@ -1052,6 +1263,99 @@
             <br><br>
             <strong style="color:var(--red-bright);">Reflection:</strong> Working through these problems helped me better understand how the JVM handles complex expressions and competing operators. I realized that while basic math is easy, you really have to master the exact order of operations to avoid mistakes in more advanced code.
           </p>
+
+<!-- FLOATING CODE WINDOW -->
+  <div class="code-window">
+    <div class="code-window-bar">
+      <div class="code-dot red"></div>
+      <div class="code-dot yellow"></div>
+      <div class="code-dot green"></div>
+      <span class="code-filename">Act2A_Jose.java</span>
+    </div>
+    <div class="code-body">
+      <div class="code-line"><span class="line-num">1</span><span class="code-text"><span class="kw">public class</span> <span class="cls">Act2PARTIno1</span> <span class="pln">{</span></span></div>
+      <div class="code-line"><span class="line-num">2</span><span class="code-text">  <span class="kw">public static void</span> <span class="fn">main</span><span class="pln">(String[] args) {</span></span></div>
+      <div class="code-line"><span class="line-num">3</span><span class="code-text">    <span class="kw">int</span> <span class="pln">a = </span><span class="num">11</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">4</span><span class="code-text">    <span class="kw">int</span> <span class="pln">b = </span><span class="num">14</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">5</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">6</span><span class="code-text">    <span class="pln">System.out.println(((a & b) == </span><span class="num">10</span><span class="pln">) + </span><span class="str">", "</span> <span class="pln">+ (a & b) +</span></span></div>
+      <div class="code-line"><span class="line-num">7</span><span class="code-text">      <span class="str">", "</span> <span class="pln">+ (a == b) + </span><span class="str">", "</span> <span class="pln">+ (a | b));</span></span></div>
+      <div class="code-line"><span class="line-num">8</span><span class="code-text">  <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">9</span><span class="code-text"><span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">10</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">11</span><span class="code-text"><span class="cmt">// ?????????????????????????????????</span></span></div>
+      <div class="code-line"><span class="line-num">12</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">13</span><span class="code-text"><span class="kw">public class</span> <span class="cls">Act2PARTIno2</span> <span class="pln">{</span></span></div>
+      <div class="code-line"><span class="line-num">14</span><span class="code-text">  <span class="kw">public static void</span> <span class="fn">main</span><span class="pln">(String[] args) {</span></span></div>
+      <div class="code-line"><span class="line-num">15</span><span class="code-text">    <span class="kw">int</span> <span class="pln">a = </span><span class="num">25</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">16</span><span class="code-text">    <span class="kw">int</span> <span class="pln">b = </span><span class="num">30</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">17</span><span class="code-text">    <span class="kw">int</span> <span class="pln">min = (b > a) ? a : b;</span></span></div>
+      <div class="code-line"><span class="line-num">18</span><span class="code-text">    <span class="kw">int</span> <span class="pln">max = (a > b) ? a : b;</span></span></div>
+      <div class="code-line"><span class="line-num">19</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">20</span><span class="code-text">    <span class="pln">System.out.println((min <= </span><span class="num">50</span><span class="pln">) + </span><span class="str">", "</span> <span class="pln">+ (max > </span><span class="num">50</span><span class="pln">) +</span></span></div>
+      <div class="code-line"><span class="line-num">21</span><span class="code-text">      <span class="str">", "</span> <span class="pln">+ ((a != </span><span class="num">25</span><span class="pln">) ? </span><span class="num">0</span> <span class="pln">: </span><span class="num">25</span><span class="pln">) +</span></span></div>
+      <div class="code-line"><span class="line-num">22</span><span class="code-text">      <span class="str">", "</span> <span class="pln">+ ((a == </span><span class="num">30</span><span class="pln">) ? </span><span class="num">0</span> <span class="pln">: </span><span class="num">30</span><span class="pln">));</span></span></div>
+      <div class="code-line"><span class="line-num">23</span><span class="code-text">  <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">24</span><span class="code-text"><span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">25</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">26</span><span class="code-text"><span class="cmt">// ?????????????????????????????????</span></span></div>
+      <div class="code-line"><span class="line-num">27</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">28</span><span class="code-text"><span class="kw">public class</span> <span class="cls">Act2PARTIno3</span> <span class="pln">{</span></span></div>
+      <div class="code-line"><span class="line-num">29</span><span class="code-text">  <span class="kw">public static void</span> <span class="fn">main</span><span class="pln">(String[] args) {</span></span></div>
+      <div class="code-line"><span class="line-num">30</span><span class="code-text">    <span class="kw">int</span> <span class="pln">add = </span><span class="num">60</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">31</span><span class="code-text">    <span class="pln">add += add;</span></span></div>
+      <div class="code-line"><span class="line-num">32</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">33</span><span class="code-text">    <span class="kw">int</span> <span class="pln">subt = </span><span class="num">200</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">34</span><span class="code-text">    <span class="pln">subt -= </span><span class="num">130</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">35</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">36</span><span class="code-text">    <span class="kw">int</span> <span class="pln">multi = </span><span class="num">3</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">37</span><span class="code-text">    <span class="pln">multi *= </span><span class="num">48</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">38</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">39</span><span class="code-text">    <span class="kw">int</span> <span class="pln">div = </span><span class="num">592</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">40</span><span class="code-text">    <span class="pln">div /= </span><span class="num">37</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">41</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">42</span><span class="code-text">    <span class="pln">System.out.println(</span><span class="str">"Addition: "</span> <span class="pln">+ add +</span></span></div>
+      <div class="code-line"><span class="line-num">43</span><span class="code-text">      <span class="str">", Subtraction: "</span> <span class="pln">+ subt +</span></span></div>
+      <div class="code-line"><span class="line-num">44</span><span class="code-text">      <span class="str">", Multiplication: "</span> <span class="pln">+ multi +</span></span></div>
+      <div class="code-line"><span class="line-num">45</span><span class="code-text">      <span class="str">", Division: "</span> <span class="pln">+ div);</span></span></div>
+      <div class="code-line"><span class="line-num">46</span><span class="code-text">  <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">47</span><span class="code-text"><span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">48</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">49</span><span class="code-text"><span class="cmt">// ?????????????????????????????????</span></span></div>
+      <div class="code-line"><span class="line-num">50</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">51</span><span class="code-text"><span class="kw">public class</span> <span class="cls">Act2PARTII</span> <span class="pln">{</span></span></div>
+      <div class="code-line"><span class="line-num">52</span><span class="code-text">  <span class="kw">public static void</span> <span class="fn">main</span><span class="pln">(String[] args) {</span></span></div>
+      <div class="code-line"><span class="line-num">53</span><span class="code-text">    <span class="kw">int</span> <span class="pln">alpha = </span><span class="num">20</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">54</span><span class="code-text">    <span class="kw">int</span> <span class="pln">bravo = </span><span class="num">4</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">55</span><span class="code-text">    <span class="pln">System.out.println(alpha - bravo);</span></span></div>
+      <div class="code-line"><span class="line-num">56</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">57</span><span class="code-text">    <span class="kw">int</span> <span class="pln">charlie = </span><span class="num">15</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">58</span><span class="code-text">    <span class="pln">System.out.println(charlie < </span><span class="num">10</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">59</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">60</span><span class="code-text">    <span class="kw">boolean</span> <span class="pln">delta = </span><span class="kw">true</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">61</span><span class="code-text">    <span class="kw">boolean</span> <span class="pln">echo = </span><span class="kw">false</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">62</span><span class="code-text">    <span class="pln">System.out.println(delta && echo);</span></span></div>
+      <div class="code-line"><span class="line-num">63</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">64</span><span class="code-text">    <span class="kw">int</span> <span class="pln">foxtrot = </span><span class="num">5</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">65</span><span class="code-text">    <span class="pln">System.out.println(foxtrot++ + --foxtrot);</span></span></div>
+      <div class="code-line"><span class="line-num">66</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">67</span><span class="code-text">    <span class="kw">int</span> <span class="pln">golf = </span><span class="num">3</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">68</span><span class="code-text">    <span class="pln">golf += </span><span class="num">27</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">69</span><span class="code-text">    <span class="pln">System.out.println(golf);</span></span></div>
+      <div class="code-line"><span class="line-num">70</span><span class="code-text"></span></div>
+      <div class="code-line"><span class="line-num">71</span><span class="code-text">    <span class="kw">int</span> <span class="pln">hotel = </span><span class="num">6</span><span class="pln">;</span></span></div>
+      <div class="code-line"><span class="line-num">72</span><span class="code-text">    <span class="pln">System.out.println(hotel >> </span><span class="num">1</span><span class="pln">);</span></span></div>
+      <div class="code-line"><span class="line-num">73</span><span class="code-text">  <span class="pln">}</span></span></div>
+      <div class="code-line"><span class="line-num">74</span><span class="code-text"><span class="pln">}</span></span></div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+
+
           <div class="pdf-embed-wrap">
             <div class="pdf-embed-header">
               <span>ACTIVITY2.PDF</span>
@@ -1079,6 +1383,89 @@
             <br><br>
             <strong style="color:var(--red-bright);">Reflection:</strong> Building this taught me about defensive programming by using nested logic to catch mistakes before they update the balance. I realized that clear error messages are just as important as the actual code because they help the user fix their input without the whole program crashing.
           </p>
+
+<!-- FLOATING CODE WINDOW -->
+<div class="code-window">
+  <div class="code-window-bar">
+    <div class="code-dot red"></div>
+    <div class="code-dot yellow"></div>
+    <div class="code-dot green"></div>
+    <span class="code-filename">SimpleWalletA_Jose.java</span>
+  </div>
+
+  <div class="code-body">
+
+    <div class="code-line"><span class="line-num">1</span><span class="code-text"><span class="kw">import</span> java.util.Scanner;</span></div>
+    <div class="code-line"><span class="line-num">2</span><span class="code-text"><span class="kw">public class</span> <span class="cls">SimpleWalletA_Jose</span> {</span></div>
+    <div class="code-line"><span class="line-num">3</span><span class="code-text">  <span class="kw">public static void</span> main(String[] args) {</span></div>
+    <div class="code-line"><span class="line-num">4</span><span class="code-text">    Scanner ans = new Scanner(System.in);</span></div>
+    <div class="code-line"><span class="line-num">5</span><span class="code-text">    double initialBal = 3000;</span></div>
+
+    <div class="code-line"><span class="line-num">6</span><span class="code-text">    System.out.println("=======================================");</span></div>
+    <div class="code-line"><span class="line-num">7</span><span class="code-text">    System.out.println("|| Welcome to A_Jose's Wallet System ||");</span></div>
+    <div class="code-line"><span class="line-num">8</span><span class="code-text">    System.out.println("=======================================");</span></div>
+
+    <div class="code-line"><span class="line-num">9</span><span class="code-text">    int input = 0;</span></div>
+    <div class="code-line"><span class="line-num">10</span><span class="code-text">    int tCount = 0;</span></div>
+
+    <div class="code-line"><span class="line-num">11</span><span class="code-text">    while (input != 4) {</span></div>
+    <div class="code-line"><span class="line-num">12</span><span class="code-text">      System.out.println("\n===== WALLET MENU =====");</span></div>
+    <div class="code-line"><span class="line-num">13</span><span class="code-text">      System.out.println("1. View Balance");</span></div>
+    <div class="code-line"><span class="line-num">14</span><span class="code-text">      System.out.println("2. Add Money");</span></div>
+    <div class="code-line"><span class="line-num">15</span><span class="code-text">      System.out.println("3. Spend Money");</span></div>
+    <div class="code-line"><span class="line-num">16</span><span class="code-text">      System.out.println("4. Exit");</span></div>
+    <div class="code-line"><span class="line-num">17</span><span class="code-text">      System.out.print("Enter choice: ");</span></div>
+    <div class="code-line"><span class="line-num">18</span><span class="code-text">      input = ans.nextInt();</span></div>
+
+    <div class="code-line"><span class="line-num">19</span><span class="code-text">      switch (input) {</span></div>
+
+    <div class="code-line"><span class="line-num">20</span><span class="code-text">        case 1:</span></div>
+    <div class="code-line"><span class="line-num">21</span><span class="code-text">          tCount++;</span></div>
+    <div class="code-line"><span class="line-num">22</span><span class="code-text">          System.out.println("Balance: " + initialBal + " pesos");</span></div>
+    <div class="code-line"><span class="line-num">23</span><span class="code-text">          break;</span></div>
+
+    <div class="code-line"><span class="line-num">24</span><span class="code-text">        case 2:</span></div>
+    <div class="code-line"><span class="line-num">25</span><span class="code-text">          System.out.print("Add: ");</span></div>
+    <div class="code-line"><span class="line-num">26</span><span class="code-text">          double addAmount = ans.nextDouble();</span></div>
+    <div class="code-line"><span class="line-num">27</span><span class="code-text">          initialBal += addAmount;</span></div>
+    <div class="code-line"><span class="line-num">28</span><span class="code-text">          tCount++;</span></div>
+    <div class="code-line"><span class="line-num">29</span><span class="code-text">          System.out.println("New Balance: " + initialBal + " pesos");</span></div>
+    <div class="code-line"><span class="line-num">30</span><span class="code-text">          break;</span></div>
+
+    <div class="code-line"><span class="line-num">31</span><span class="code-text">        case 3:</span></div>
+    <div class="code-line"><span class="line-num">32</span><span class="code-text">          System.out.print("Spend: ");</span></div>
+    <div class="code-line"><span class="line-num">33</span><span class="code-text">          double spendAmount = ans.nextDouble();</span></div>
+    <div class="code-line"><span class="line-num">34</span><span class="code-text">          while (spendAmount > initialBal || spendAmount > 1000) {</span></div>
+    <div class="code-line"><span class="line-num">35</span><span class="code-text">            System.out.println("Invalid amount. Try again.");</span></div>
+    <div class="code-line"><span class="line-num">36</span><span class="code-text">            spendAmount = ans.nextDouble();</span></div>
+    <div class="code-line"><span class="line-num">37</span><span class="code-text">          }</span></div>
+    <div class="code-line"><span class="line-num">38</span><span class="code-text">          initialBal -= spendAmount;</span></div>
+    <div class="code-line"><span class="line-num">39</span><span class="code-text">          tCount++;</span></div>
+    <div class="code-line"><span class="line-num">40</span><span class="code-text">          System.out.println("New Balance: " + initialBal + " pesos");</span></div>
+    <div class="code-line"><span class="line-num">41</span><span class="code-text">          break;</span></div>
+
+    <div class="code-line"><span class="line-num">42</span><span class="code-text">        case 4:</span></div>
+    <div class="code-line"><span class="line-num">43</span><span class="code-text">          System.out.println("Transactions: " + tCount);</span></div>
+    <div class="code-line"><span class="line-num">44</span><span class="code-text">          System.out.println("Goodbye!");</span></div>
+    <div class="code-line"><span class="line-num">45</span><span class="code-text">          break;</span></div>
+
+    <div class="code-line"><span class="line-num">46</span><span class="code-text">        default:</span></div>
+    <div class="code-line"><span class="line-num">47</span><span class="code-text">          System.out.println("Invalid choice.");</span></div>
+    <div class="code-line"><span class="line-num">48</span><span class="code-text">      }</span></div>
+
+    <div class="code-line"><span class="line-num">49</span><span class="code-text">    }</span></div>
+    <div class="code-line"><span class="line-num">50</span><span class="code-text">  }</span></div>
+    <div class="code-line"><span class="line-num">51</span><span class="code-text">}</span></div>
+
+  </div>
+</div>
+
+<div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+
+
           <div class="pdf-embed-wrap">
             <div class="pdf-embed-header">
               <span>ACTIVITY3.PDF</span>
@@ -1106,6 +1493,70 @@
             <br><br>
             <strong style="color:var(--red-bright);">Reflection:</strong> This activity showed me how to turn a school grading rubric into actual logic using boundary conditions. I also learned that using System.out.printf is a must for formatting averages so the output looks clean and professional for the user.
           </p>
+
+
+<!-- FLOATING CODE WINDOW -->
+<div class="code-window">
+  <div class="code-window-bar">
+    <div class="code-dot red"></div>
+    <div class="code-dot yellow"></div>
+    <div class="code-dot green"></div>
+    <span class="code-filename">GradeEvaluationA_Jose.java</span>
+  </div>
+
+  <div class="code-body">
+
+    <div class="code-line"><span class="line-num">1</span><span class="code-text"><span class="kw">public class</span> <span class="cls">GradeEvaluationA_Jose</span> {</span></div>
+    <div class="code-line"><span class="line-num">2</span><span class="code-text">  <span class="kw">public static void</span> main(String[] args) {</span></div>
+
+    <div class="code-line"><span class="line-num">3</span><span class="code-text">    <span class="kw">double</span> prelim = <span class="num">85</span>;</span></div>
+    <div class="code-line"><span class="line-num">4</span><span class="code-text">    <span class="kw">double</span> midterm = <span class="num">78</span>;</span></div>
+    <div class="code-line"><span class="line-num">5</span><span class="code-text">    <span class="kw">double</span> finals = <span class="num">90</span>;</span></div>
+
+    <div class="code-line"><span class="line-num">6</span><span class="code-text">    <span class="kw">double</span> avrgGrade = (prelim + midterm + finals) / <span class="num">3</span>;</span></div>
+
+    <div class="code-line"><span class="line-num">7</span><span class="code-text">    System.out.println(<span class="str">"================================================="</span>);</span></div>
+    <div class="code-line"><span class="line-num">8</span><span class="code-text">    System.out.println(<span class="str">"|| Welcome to A_Jose's Grade Evaluation System ||"</span>);</span></div>
+    <div class="code-line"><span class="line-num">9</span><span class="code-text">    System.out.println(<span class="str">"================================================="</span>);</span></div>
+
+    <div class="code-line"><span class="line-num">10</span><span class="code-text">    System.out.println(<span class="str">"\nPrelim Grade: "</span> + prelim);</span></div>
+    <div class="code-line"><span class="line-num">11</span><span class="code-text">    System.out.println(<span class="str">"Midterm Grade: "</span> + midterm);</span></div>
+    <div class="code-line"><span class="line-num">12</span><span class="code-text">    System.out.println(<span class="str">"Final Grade: "</span> + finals);</span></div>
+
+    <div class="code-line"><span class="line-num">13</span><span class="code-text">    System.out.printf(<span class="str">"\nAverage: %.2f%n"</span>, avrgGrade);</span></div>
+
+    <div class="code-line"><span class="line-num">14</span><span class="code-text">    String remark = <span class="str">""</span>;</span></div>
+
+    <div class="code-line"><span class="line-num">15</span><span class="code-text">    <span class="kw">if</span> (avrgGrade &lt; <span class="num">75</span>) {</span></div>
+    <div class="code-line"><span class="line-num">16</span><span class="code-text">      remark = <span class="str">"Failed"</span>;</span></div>
+    <div class="code-line"><span class="line-num">17</span><span class="code-text">    } <span class="kw">else if</span> (avrgGrade &gt;= <span class="num">75</span> &amp;&amp; avrgGrade &lt;= <span class="num">79</span>) {</span></div>
+    <div class="code-line"><span class="line-num">18</span><span class="code-text">      remark = <span class="str">"Fair"</span>;</span></div>
+    <div class="code-line"><span class="line-num">19</span><span class="code-text">    } <span class="kw">else if</span> (avrgGrade &gt;= <span class="num">80</span> &amp;&amp; avrgGrade &lt;= <span class="num">89</span>) {</span></div>
+    <div class="code-line"><span class="line-num">20</span><span class="code-text">      remark = <span class="str">"Good"</span>;</span></div>
+    <div class="code-line"><span class="line-num">21</span><span class="code-text">    } <span class="kw">else if</span> (avrgGrade &gt;= <span class="num">90</span> &amp;&amp; avrgGrade &lt;= <span class="num">100</span>) {</span></div>
+    <div class="code-line"><span class="line-num">22</span><span class="code-text">      remark = <span class="str">"Excellent"</span>;</span></div>
+    <div class="code-line"><span class="line-num">23</span><span class="code-text">    } <span class="kw">else</span> {</span></div>
+    <div class="code-line"><span class="line-num">24</span><span class="code-text">      System.out.println(<span class="str">"Invalid Average Grade."</span>);</span></div>
+    <div class="code-line"><span class="line-num">25</span><span class="code-text">    }</span></div>
+
+    <div class="code-line"><span class="line-num">26</span><span class="code-text">    System.out.println(<span class="str">"Remark: "</span> + remark);</span></div>
+
+    <div class="code-line"><span class="line-num">27</span><span class="code-text">    System.out.println(<span class="str">"\n===================================================================="</span>);</span></div>
+    <div class="code-line"><span class="line-num">28</span><span class="code-text">    System.out.println(<span class="str">"|| Thank you for using A_Jose's Grade Evaluation System! Goodbye! ||"</span>);</span></div>
+    <div class="code-line"><span class="line-num">29</span><span class="code-text">    System.out.println(<span class="str">"===================================================================="</span>);</span></div>
+
+    <div class="code-line"><span class="line-num">30</span><span class="code-text">  }</span></div>
+    <div class="code-line"><span class="line-num">31</span><span class="code-text">}</span></div>
+
+  </div>
+</div>
+
+<div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+
+
           <div class="pdf-embed-wrap">
             <div class="pdf-embed-header">
               <span>ACTIVITY4.PDF</span>
@@ -1133,6 +1584,120 @@
             <br><br>
             <strong style="color:var(--red-bright);">Reflection:</strong> Building this taught me how to keep code organized by breaking it down into smaller, modular parts. I realized that using conditional logic to compare expenses against a budget is a great way to solve real-world money management problems with code.
           </p>
+
+
+<!-- FLOATING CODE WINDOW -->
+<div class="code-window">
+  <div class="code-window-bar">
+    <div class="code-dot red"></div>
+    <div class="code-dot yellow"></div>
+    <div class="code-dot green"></div>
+    <span class="code-filename">ExpenseTrackerA_Jose.java</span>
+  </div>
+
+  <div class="code-body">
+
+    <div class="code-line"><span class="line-num">1</span><span class="code-text"><span class="kw">import</span> java.util.Scanner;</span></div>
+
+    <div class="code-line"><span class="line-num">2</span><span class="code-text"><span class="kw">public class</span> <span class="cls">ExpenseTrackerA_Jose</span> {</span></div>
+
+    <div class="code-line"><span class="line-num">3</span><span class="code-text">  <span class="kw">static void</span> progTitle() {</span></div>
+    <div class="code-line"><span class="line-num">4</span><span class="code-text">    System.out.println(<span class="str">"==========================================="</span>);</span></div>
+    <div class="code-line"><span class="line-num">5</span><span class="code-text">    System.out.println(<span class="str">"||  Welcome to A_Jose's Expense Tracker  ||"</span>);</span></div>
+    <div class="code-line"><span class="line-num">6</span><span class="code-text">    System.out.println(<span class="str">"==========================================="</span>);</span></div>
+    <div class="code-line"><span class="line-num">7</span><span class="code-text">  }</span></div>
+
+    <div class="code-line"><span class="line-num">8</span><span class="code-text">  <span class="kw">static double</span> totalExp(<span class="kw">double</span> food, <span class="kw">double</span> transport, <span class="kw">double</span> clothing, <span class="kw">double</span> other) {</span></div>
+    <div class="code-line"><span class="line-num">9</span><span class="code-text">    <span class="kw">return</span> food + transport + clothing + other;</span></div>
+    <div class="code-line"><span class="line-num">10</span><span class="code-text">  }</span></div>
+
+    <div class="code-line"><span class="line-num">11</span><span class="code-text">  <span class="kw">static String</span> budgetStatus(<span class="kw">double</span> total, <span class="kw">double</span> budget) {</span></div>
+    <div class="code-line"><span class="line-num">12</span><span class="code-text">    <span class="kw">double</span> remaining = budget - total;</span></div>
+    <div class="code-line"><span class="line-num">13</span><span class="code-text">    <span class="kw">if</span> (total &gt; budget) {</span></div>
+    <div class="code-line"><span class="line-num">14</span><span class="code-text">      <span class="kw">return</span> <span class="str">"Over budget by: PHP "</span> + String.format(<span class="str">"%.2f"</span>, Math.abs(remaining));</span></div>
+    <div class="code-line"><span class="line-num">15</span><span class="code-text">    } <span class="kw">else</span> {</span></div>
+    <div class="code-line"><span class="line-num">16</span><span class="code-text">      <span class="kw">return</span> <span class="str">"Remaining budget PHP "</span> + String.format(<span class="str">"%.2f"</span>, remaining);</span></div>
+    <div class="code-line"><span class="line-num">17</span><span class="code-text">    }</span></div>
+    <div class="code-line"><span class="line-num">18</span><span class="code-text">  }</span></div>
+
+    <div class="code-line"><span class="line-num">19</span><span class="code-text">  <span class="kw">static void</span> summary(<span class="kw">double</span> food, <span class="kw">double</span> transport, <span class="kw">double</span> clothing, <span class="kw">double</span> other, <span class="kw">double</span> budget) {</span></div>
+    <div class="code-line"><span class="line-num">20</span><span class="code-text">    <span class="kw">double</span> total = totalExp(food, transport, clothing, other);</span></div>
+    <div class="code-line"><span class="line-num">21</span><span class="code-text">    String status = budgetStatus(total, budget);</span></div>
+
+    <div class="code-line"><span class="line-num">22</span><span class="code-text">    System.out.println(<span class="str">"\n-------------------------------------------"</span>);</span></div>
+    <div class="code-line"><span class="line-num">23</span><span class="code-text">    System.out.println(<span class="str">"\nTOTAL: PHP "</span> + total);</span></div>
+    <div class="code-line"><span class="line-num">24</span><span class="code-text">    System.out.println(<span class="str">"BUDGET: PHP "</span> + budget);</span></div>
+    <div class="code-line"><span class="line-num">25</span><span class="code-text">    System.out.println(<span class="str">"STATUS: "</span> + status);</span></div>
+
+    <div class="code-line"><span class="line-num">26</span><span class="code-text">    <span class="kw">if</span> (total &gt; budget) {</span></div>
+    <div class="code-line"><span class="line-num">27</span><span class="code-text">      System.out.println(<span class="str">"\nYou exceeded your budget."</span>);</span></div>
+    <div class="code-line"><span class="line-num">28</span><span class="code-text">    } <span class="kw">else</span> {</span></div>
+    <div class="code-line"><span class="line-num">29</span><span class="code-text">      System.out.println(<span class="str">"\nYou're within your budget."</span>);</span></div>
+    <div class="code-line"><span class="line-num">30</span><span class="code-text">    }</span></div>
+    <div class="code-line"><span class="line-num">31</span><span class="code-text">  }</span></div>
+
+    <div class="code-line"><span class="line-num">32</span><span class="code-text">  <span class="kw">public static void</span> main(String[] args) {</span></div>
+    <div class="code-line"><span class="line-num">33</span><span class="code-text">    Scanner ans = <span class="kw">new</span> Scanner(System.in);</span></div>
+
+    <div class="code-line"><span class="line-num">34</span><span class="code-text">    <span class="kw">double</span> food, transport, clothing, other, budget;</span></div>
+
+    <div class="code-line"><span class="line-num">35</span><span class="code-text">    progTitle();</span></div>
+
+    <div class="code-line"><span class="line-num">36</span><span class="code-text">    System.out.print(<span class="str">"\nEnter food expenses: "</span>);</span></div>
+    <div class="code-line"><span class="line-num">37</span><span class="code-text">    food = ans.nextDouble();</span></div>
+
+    <div class="code-line"><span class="line-num">38</span><span class="code-text">    <span class="kw">while</span> (food &lt; <span class="num">0</span>) {</span></div>
+    <div class="code-line"><span class="line-num">39</span><span class="code-text">      System.out.print(<span class="str">"Please input a valid amount: "</span>);</span></div>
+    <div class="code-line"><span class="line-num">40</span><span class="code-text">      food = ans.nextDouble();</span></div>
+    <div class="code-line"><span class="line-num">41</span><span class="code-text">    }</span></div>
+
+    <div class="code-line"><span class="line-num">42</span><span class="code-text">    System.out.print(<span class="str">"Enter transportation expenses: "</span>);</span></div>
+    <div class="code-line"><span class="line-num">43</span><span class="code-text">    transport = ans.nextDouble();</span></div>
+
+    <div class="code-line"><span class="line-num">44</span><span class="code-text">    <span class="kw">while</span> (transport &lt; <span class="num">0</span>) {</span></div>
+    <div class="code-line"><span class="line-num">45</span><span class="code-text">      System.out.print(<span class="str">"Please input a valid amount: "</span>);</span></div>
+    <div class="code-line"><span class="line-num">46</span><span class="code-text">      transport = ans.nextDouble();</span></div>
+    <div class="code-line"><span class="line-num">47</span><span class="code-text">    }</span></div>
+
+    <div class="code-line"><span class="line-num">48</span><span class="code-text">    System.out.print(<span class="str">"Enter clothing expenses: "</span>);</span></div>
+    <div class="code-line"><span class="line-num">49</span><span class="code-text">    clothing = ans.nextDouble();</span></div>
+
+    <div class="code-line"><span class="line-num">50</span><span class="code-text">    <span class="kw">while</span> (clothing &lt; <span class="num">0</span>) {</span></div>
+    <div class="code-line"><span class="line-num">51</span><span class="code-text">      System.out.print(<span class="str">"Please input a valid amount: "</span>);</span></div>
+    <div class="code-line"><span class="line-num">52</span><span class="code-text">      clothing = ans.nextDouble();</span></div>
+    <div class="code-line"><span class="line-num">53</span><span class="code-text">    }</span></div>
+
+    <div class="code-line"><span class="line-num">54</span><span class="code-text">    System.out.print(<span class="str">"Enter other expenses: "</span>);</span></div>
+    <div class="code-line"><span class="line-num">55</span><span class="code-text">    other = ans.nextDouble();</span></div>
+
+    <div class="code-line"><span class="line-num">56</span><span class="code-text">    <span class="kw">while</span> (other &lt; <span class="num">0</span>) {</span></div>
+    <div class="code-line"><span class="line-num">57</span><span class="code-text">      System.out.print(<span class="str">"Please input a valid amount: "</span>);</span></div>
+    <div class="code-line"><span class="line-num">58</span><span class="code-text">      other = ans.nextDouble();</span></div>
+    <div class="code-line"><span class="line-num">59</span><span class="code-text">    }</span></div>
+
+    <div class="code-line"><span class="line-num">60</span><span class="code-text">    System.out.print(<span class="str">"Enter your budget: "</span>);</span></div>
+    <div class="code-line"><span class="line-num">61</span><span class="code-text">    budget = ans.nextDouble();</span></div>
+
+    <div class="code-line"><span class="line-num">62</span><span class="code-text">    <span class="kw">while</span> (budget &lt; <span class="num">0</span>) {</span></div>
+    <div class="code-line"><span class="line-num">63</span><span class="code-text">      System.out.print(<span class="str">"Please input a valid amount: "</span>);</span></div>
+    <div class="code-line"><span class="line-num">64</span><span class="code-text">      budget = ans.nextDouble();</span></div>
+    <div class="code-line"><span class="line-num">65</span><span class="code-text">    }</span></div>
+
+    <div class="code-line"><span class="line-num">66</span><span class="code-text">    summary(food, transport, clothing, other, budget);</span></div>
+    <div class="code-line"><span class="line-num">67</span><span class="code-text">  }</span></div>
+
+    <div class="code-line"><span class="line-num">68</span><span class="code-text">}</span></div>
+
+  </div>
+</div>
+
+
+<div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+
+
           <div class="pdf-embed-wrap">
             <div class="pdf-embed-header">
               <span>ACTIVITY5.PDF</span>
