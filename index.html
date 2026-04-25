@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OOP E-Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #050505;
+    --deep: #0a0a0a;
+    --panel: #111111;
+    --border: #1e1e1e;
+    --red: #8b0000;
+    --red-mid: #b00000;
+    --red-bright: #cc0000;
+    --red-glow: #ff1a1a;
+    --white: #f0f0f0;
+    --white-dim: #aaaaaa;
+    --white-faint: #444444;
+    --font-display: 'Orbitron', monospace;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-body: 'Rajdhani', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  #bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -10; 
+  filter: brightness(.4) contrast(1.2); 
+  }
+
+  /* SCAN LINES OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.12) 2px,
+      rgba(0,0,0,0.12) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* NOISE GRAIN */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: -200%;
+    width: 400%;
+    height: 400%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.4;
+  }
+
+  /* ======= NAV ======= */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(5,5,5,0.95);
+    border-bottom: 1px solid var(--red);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--red-bright);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .nav-logo span { color: var(--white); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+    padding-bottom: 4px;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--red-bright);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--red-bright); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--white);
+    transition: 0.3s;
+  }
+
+  /* ======= HERO ======= */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 8rem 6rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(139,0,0,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(139,0,0,0.08) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(139,0,0,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139,0,0,0.07) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+  }
+
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--red-bright);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.4s forwards;
+  }
+
+  .hero-name .accent { color: var(--red-bright); }
+
+  .hero-subtitle {
+    font-family: var(--font-display);
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+    color: var(--white-dim);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.6s forwards;
+  }
+  
+  .hero-intro {
+    max-width: 700px;
+    font-size: 1.35rem;
+    color: var(--white);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.8s forwards;
+    border-left: 2px solid var(--red);
+    padding-left: 1.2rem;
+    text-align: justify;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 1s forwards;
+  }
+
+  .stat {
+    font-family: var(--font-mono);
+  }
+
+  .stat-val {
+    font-size: 2rem;
+    color: var(--red-bright);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--white-faint);
+    text-transform: uppercase;
+  }
+
+  .hero-corner {
+    position: absolute;
+    right: 6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--white);
+    text-align: right;
+    line-height: 2.2;
+    letter-spacing: 0.15em;
+    opacity: 0;
+    animation: fadeIn 1s 1.2s forwards;
+  }
+
+  .hero-corner .hl { color: var(--red); }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--white-faint);
+    text-transform: uppercase;
+    overflow: hidden;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--red-bright), transparent);
+    animation: scrollPulse 1.5s ease-in-out infinite;
+  }
+
+  /* ======= SECTIONS ======= */
+  section {
+    padding: 6rem 6rem;
+    position: relative;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--red);
+    letter-spacing: 0.2em;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--red), transparent);
+  }
+
+  /* ======= PORTFOLIO GRID ======= */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .portfolio-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .portfolio-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--red-bright);
+    transition: height 0.4s;
+  }
+
+  .portfolio-card:hover {
+    border-color: var(--red);
+    transform: translateY(-3px);
+  }
+
+  .portfolio-card:hover::before { height: 100%; }
+
+  .card-header {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--white);
+  }
+
+  .card-badge {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--red-bright);
+    border: 1px solid var(--red);
+    padding: 2px 8px;
+    text-transform: uppercase;
+  }
+
+  .card-body { padding: 1.5rem; }
+
+  .card-desc {
+    font-size: 0.88rem;
+    color: var(--white-dim);
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ======= UPLOAD ZONE ======= */
+  .upload-zone {
+    border: 1px dashed var(--white-faint);
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+    position: relative;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: rgba(255,255,255,0.01);
+  }
+
+  .upload-zone:hover, .upload-zone.dragover {
+    border-color: var(--red-bright);
+    background: rgba(139,0,0,0.06);
+  }
+
+  .upload-zone input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%; height: 100%;
+  }
+
+  .upload-icon {
+    font-size: 1.8rem;
+    color: var(--white-faint);
+    transition: color 0.3s;
+    line-height: 1;
+  }
+
+  .upload-zone:hover .upload-icon { color: var(--red-bright); }
+
+  .upload-hint {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--white-faint);
+    text-transform: uppercase;
+  }
+
+  .upload-sub {
+    font-size: 0.72rem;
+    color: var(--white-faint);
+  }
+
+  /* UPLOADED FILE PREVIEW */
+  .file-preview-wrap {
+    display: none;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .file-preview-wrap.active { display: flex; }
+
+  .file-preview-item {
+    background: rgba(139,0,0,0.08);
+    border: 1px solid var(--red);
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .file-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .file-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .file-name {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+
+  .file-size {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--white-faint);
+    flex-shrink: 0;
+  }
+
+  .btn-remove {
+    background: none;
+    border: 1px solid var(--white-faint);
+    color: var(--white-faint);
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    padding: 3px 8px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: 0.2s;
+    flex-shrink: 0;
+  }
+
+  .btn-remove:hover { border-color: var(--red-bright); color: var(--red-bright); }
+
+  /* IMAGE PREVIEW GRID */
+  .img-preview-grid {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+    margin-top: 1rem;
+  }
+
+  .img-preview-grid.active { display: grid; }
+
+  .img-thumb {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    cursor: pointer;
+  }
+
+  .img-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .img-thumb:hover img { transform: scale(1.05); }
+
+  .img-thumb .remove-img {
+    position: absolute;
+    top: 4px; right: 4px;
+    background: rgba(0,0,0,0.8);
+    border: 1px solid var(--red);
+    color: var(--red-bright);
+    width: 20px; height: 20px;
+    font-size: 0.7rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .img-thumb:hover .remove-img { opacity: 1; }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border: 1px solid var(--red);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    background: none;
+    border: 1px solid var(--white-faint);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .lightbox-close:hover { border-color: var(--red-bright); color: var(--red-bright); }
+
+  /* ======= TEXT AREA / NOTES ======= */
+  .notes-area {
+    width: 100%;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 1rem;
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.7;
+    outline: none;
+    transition: border-color 0.3s;
+    letter-spacing: 0.05em;
+  }
+
+  .notes-area::placeholder { color: var(--white-faint); }
+  .notes-area:focus { border-color: var(--red); }
+
+  /* ======= PDF VIEWER ======= */
+  .pdf-viewer {
+    display: none;
+    width: 100%;
+    height: 500px;
+    border: 1px solid var(--red);
+    background: var(--panel);
+    margin-top: 1rem;
+  }
+
+  .pdf-viewer.active { display: block; }
+
+  /* ======= CONTACT ======= */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 700px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .input-group.full { grid-column: 1/-1; }
+
+  .input-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--white-faint);
+    text-transform: uppercase;
+  }
+
+  .input-field {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+
+  .input-field:focus { border-color: var(--red-bright); }
+
+  .btn-submit {
+    grid-column: 1/-1;
+    background: var(--red);
+    border: 1px solid var(--red-bright);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
+    width: fit-content;
+  }
+
+  .btn-submit:hover {
+    background: var(--red-mid);
+    box-shadow: 0 0 20px rgba(204,0,0,0.3);
+  }
+
+  /* ======= FOOTER ======= */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--white-faint);
+  }
+
+  footer .foot-accent { color: var(--red); }
+
+  /* ======= ANIMATIONS ======= */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .blink { animation: blink 1s step-end infinite; }
+
+  /* ======= DIVIDER ======= */
+  .sec-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--red), transparent);
+    margin: 0 6rem;
+    opacity: 0.4;
+  }
+
+  /* ======= RESPONSIVE ======= */
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-corner { display: none; }
+    .hero-stats { gap: 1.5rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: rgba(5,5,5,0.98); border-bottom: 1px solid var(--red); padding: 1.5rem 2rem; gap: 1.5rem; }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    nav { padding: 0 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    .sec-divider { margin: 0 1.5rem; }
+    @media (max-width: 768px) {
+    #bg-video {
+    display: none;
+    }
+
+    body {
+    background: url('images/fallback.jpg') no-repeat center center/cover;
+    }
+  }
+  }
+
+
+  /* EDITABLE FIELDS */
+  [contenteditable="true"] {
+    outline: none;
+    border-bottom: 1px dashed var(--white-faint);
+    padding-bottom: 2px;
+    transition: border-color 0.3s;
+    cursor: text;
+  }
+
+  [contenteditable="true"]:focus {
+    border-bottom-color: var(--red-bright);
+  }
+
+  .edit-hint {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--white-faint);
+    letter-spacing: 0.15em;
+    margin-top: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .edit-hint::before {
+    content: '✎';
+    color: var(--red);
+  }
+
+  /* TABS */
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    transition: 0.2s;
+    white-space: nowrap;
+    position: relative;
+    top: 1px;
+  }
+
+  .tab-btn:hover { color: var(--white); 
+  }
+  .tab-btn.active { color: var(--red-bright); border-bottom-color: var(--red-bright); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+</style>
+</head>
+<body>
+
+<!-- VIDEO BACKGROUND -->
+<video autoplay muted loop id="bg-video">
+  <source src="videos/bg.mp4" type="video/mp4">
+</video>
+
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">[ CLOSE ]</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">A JOSE<span>.E-Portfolio</span> <span style="color:var(--white-faint);font-size:0.55rem">∎</span></div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" onclick="closeMenu()">Home</a></li>
+    <li><a href="#midterm" onclick="closeMenu()">Midterms</a></li>
+    <li><a href="#final" onclick="closeMenu()">Finals</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO / HOME -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div style="position:relative; z-index:1;">
+    <div class="hero-tag">// Object-Oriented Programming &nbsp;·&nbsp E-Portfolio</div>
+    <h1 class="hero-name">
+      <span>JUSTIN GABRIEL D.</span><br>
+      <span class="accent">A JOSE</span>
+    </h1>
+    <div class="hero-subtitle">
+      <span>BSIT 2-1</span>
+      &nbsp;·&nbsp;
+      <span>POLYTECHNIC UNIVERSITY OF THE PHILIPPINES</span>
+    </div>
+    <p class="hero-intro">
+      Hello there! I am Justin "Aweseh" A Jose. This e-portfolio presents my outputs in Object-Oriented Programming using Java. It includes quizzes, activities, and exams that demonstrate my understanding of OOP concepts such as classes, objects, methods, inheritance, and more.
+    </p>
+  </div>
+
+  <div class="hero-corner">
+    <span class="hl">[ STATUS ]</span><br>
+    ENROLLED<br>
+    <span class="hl">[ SEMESTER ]</span><br>
+    S.Y. 2025-2026<br>
+    <span class="hl">[ LANGUAGE ]</span><br>
+    JAVA
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<hr class="sec-divider">
+
+<!-- MIDTERM -->
+<section id="midterm">
+  <div class="section-header">
+    <span class="section-num">// 01</span>
+    <h2 class="section-title">Midterms</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('midterm', 'quizzes', this)">Quizzes</button>
+    <button class="tab-btn" onclick="switchTab('midterm', 'seatwork', this)">Seatwork</button>
+    <button class="tab-btn" onclick="switchTab('midterm', 'activities', this)">Activities</button>
+    <button class="tab-btn" onclick="switchTab('midterm', 'exam', this)">Exam</button>
+  </div>
+
+  <!-- QUIZZES TAB -->
+  <div class="tab-panel active" id="midterm-quizzes">
+    <div class="row-layout">
+ 
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Quiz #1</span>
+          <span class="card-badge">JAVA HISTORY AND BASICS</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Reflection:</strong> I am satisfied with my score on this quiz. It was challenging, yet I managed to achieve a result that I truly appreciate. This assessment allowed me to evaluate my understanding of the fundamentals and history of Java, and it helped reinforce key concepts that are essential for deeper learning.
+          </p>
+        </div>
+      </div>
+      
+      <br>
+
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Quiz #2</span>
+          <span class="card-badge">JAVA SYNTAX AND OOP PRINCIPLES</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Reflection:</strong> The quiz was a tough but rewarding challenge. I appreciated the score I achieved, especially given the strict time constraints. It served as a solid validation of my progress in mastering Java Syntaxes and OOP Principles.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- SEATWORK TAB -->
+  <div class="tab-panel" id="midterm-seatwork">
+    <div class="row-layout">
+ 
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Seatwork #1</span>
+          <span class="card-badge">OPERATION TRACKING</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Reflection:</strong> I finally realized that Java's
+            increment operators work differently depending on placement. With pre-increment (++i), the variable
+            levels up before the math even starts. But with post-increment (i++), Java uses the old value first
+            and saves the update for later. It's such a tiny detail, but it can absolutely wreck your logic if you're
+            not paying attention.
+          </p>
+        </div>
+      </div>
+      
+      <br>
+
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Seatwork #2</span>
+          <span class="card-badge">ATM TRANSACTION COUNTER</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Explanation:</strong> For this seatwork, I developed a Java-based
+            ATM Transaction Counter. The system manages an initial balance of 8,000 pesos and uses a
+            <code style="background:rgba(139,0,0,0.2); padding:1px 5px; font-family:var(--font-mono); font-size:0.8em;">while</code>
+            loop to keep the menu running until the user chooses to exit. I implemented logic to handle
+            deposits, withdrawals with a 2,000-peso limit, and a counter to track total transactions processed during
+            the session.
+            <br><br>
+            <strong style="color:var(--red-bright);">Reflection:</strong> This seatwork was a great exercise in state
+            management and input validation. Working through the transaction counter specifically helped me visualize
+            how Java handles increment timing. I learned that small details, like whether a counter updates before or
+            after a process, are what make a system truly reliable and user-friendly.
+          </p>
+          <div class="pdf-embed-wrap">
+            <div class="pdf-embed-header">
+              <span>SEATWORK2.PDF</span>
+              <a href="files/seatwork2.pdf" target="_blank">[ OPEN ]</a>
+            </div>
+            <iframe src="files/seatwork2.pdf" width="100%" height="480px" style="border:none; display:block; background:#1a1a1a;">
+              <p style="padding:1rem; font-family:var(--font-mono); font-size:0.7rem; color:var(--white-dim);">
+                PDF cannot be displayed inline. <a href="files/seatwork2.pdf" target="_blank" style="color:var(--red-bright);">Download it here</a>.
+              </p>
+            </iframe>
+          </div>
+        </div>
+      </div>
+      
+      <br>
+
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Seatwork #3</span>
+          <span class="card-badge">STUDENT AGE ANALYZER</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Explanation:</strong> This seatwork is a Java program that uses a `static` method and an `if-else if` ladder to sort people into categories like Child or Senior based on their age. I also added a `while` loop to catch any negative numbers, so the program doesn't move forward until the user enters a valid age.
+            <br><br>
+            <strong style="color:var(--red-bright);">Reflection:</strong> Building this seatwork showed me how much cleaner code is when you use separate methods instead of just cramming everything into the main one. I also realized that solid input validation is a must to keep the program from crashing whenever a user enters something unexpected.
+          </p>
+          <div class="pdf-embed-wrap">
+            <div class="pdf-embed-header">
+              <span>SEATWORK3.PDF</span>
+              <a href="files/seatwork3.pdf" target="_blank">[ OPEN ]</a>
+            </div>
+            <iframe src="files/seatwork3.pdf" width="100%" height="480px" style="border:none; display:block; background:#1a1a1a;">
+              <p style="padding:1rem; font-family:var(--font-mono); font-size:0.7rem; color:var(--white-dim);">
+                PDF cannot be displayed inline. <a href="files/seatwork3.pdf" target="_blank" style="color:var(--red-bright);">Download it here</a>.
+              </p>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- ACTIVITIES TAB -->
+  <div class="tab-panel" id="midterm-activities">
+    <div class="row-layout">
+ 
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Activity #1</span>
+          <span class="card-badge">VARIABLES</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Explanation:</strong> This activity looks at how Java handles memory by splitting different variables between the Stack and the Heap. It shows how "aliasing" works, where multiple variables point to the same spot in memory, so changing one updates the other automatically.
+            <br><br>
+            <strong style="color:var(--red-bright);">Reflection:</strong> Seeing how the Stack and Heap are separate helped me realize that reference variables are just pointers to data, not the actual data. It was a big lightbulb moment to learn that copying an object just copies its memory address, which explains why variables can stay "in sync" during a program.
+          </p>
+          <div class="pdf-embed-wrap">
+            <div class="pdf-embed-header">
+              <span>ACTIVITY1.PDF</span>
+              <a href="files/activity1.pdf" target="_blank">[ OPEN ]</a>
+            </div>
+            <iframe src="files/activity1.pdf" width="100%" height="480px" style="border:none; display:block; background:#1a1a1a;">
+              <p style="padding:1rem; font-family:var(--font-mono); font-size:0.7rem; color:var(--white-dim);">
+                PDF cannot be displayed inline. <a href="files/activity1.pdf" target="_blank" style="color:var(--red-bright);">Download it here</a>.
+              </p>
+            </iframe>
+          </div>
+        </div>
+      </div>
+ 
+      <br>
+
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Activity #2</span>
+          <span class="card-badge">OPERATORS</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Explanation:</strong> This activity explores how different Java operators, like arithmetic and bitwise types, work together to reach specific results. It focuses on tricky areas like operator precedence and timing, especially when using increments like foxtrot++ + --foxtrot to change variables in one line.
+            <br><br>
+            <strong style="color:var(--red-bright);">Reflection:</strong> Working through these problems helped me better understand how the JVM handles complex expressions and competing operators. I realized that while basic math is easy, you really have to master the exact order of operations to avoid mistakes in more advanced code.
+          </p>
+          <div class="pdf-embed-wrap">
+            <div class="pdf-embed-header">
+              <span>ACTIVITY2.PDF</span>
+              <a href="files/activity2.pdf" target="_blank">[ OPEN ]</a>
+            </div>
+            <iframe src="files/activity2.pdf" width="100%" height="480px" style="border:none; display:block; background:#1a1a1a;">
+              <p style="padding:1rem; font-family:var(--font-mono); font-size:0.7rem; color:var(--white-dim);">
+                PDF cannot be displayed inline. <a href="files/activity2.pdf" target="_blank" style="color:var(--red-bright);">Download it here</a>.
+              </p>
+            </iframe>
+          </div>
+        </div>
+      </div>
+      
+      <br>
+
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Activity #3</span>
+          <span class="card-badge">SIMPLE WALLET SYSTEM</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Explanation:</strong> This activity is a Java program that helps manage money by letting users check their balance, add cash, or spend it within set limits. It uses a while loop to keep the menu open and has strict checks to block any spending over 1,000 pesos or what's currently in the wallet.
+            <br><br>
+            <strong style="color:var(--red-bright);">Reflection:</strong> Building this taught me about defensive programming by using nested logic to catch mistakes before they update the balance. I realized that clear error messages are just as important as the actual code because they help the user fix their input without the whole program crashing.
+          </p>
+          <div class="pdf-embed-wrap">
+            <div class="pdf-embed-header">
+              <span>ACTIVITY3.PDF</span>
+              <a href="files/activity3.pdf" target="_blank">[ OPEN ]</a>
+            </div>
+            <iframe src="files/activity3.pdf" width="100%" height="480px" style="border:none; display:block; background:#1a1a1a;">
+              <p style="padding:1rem; font-family:var(--font-mono); font-size:0.7rem; color:var(--white-dim);">
+                PDF cannot be displayed inline. <a href="files/activity3.pdf" target="_blank" style="color:var(--red-bright);">Download it here</a>.
+              </p>
+            </iframe>
+          </div>
+        </div>
+      </div>
+ 
+      <br>
+
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Activity #4</span>
+          <span class="card-badge">GRADE EVALUATION SYSTEM</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Explanation:</strong> This Java program automatically calculates a student's average grade from their Prelim, Midterm, and Final scores. It uses an if-else if ladder to give specific remarks like "Failed" or "Excellent" depending on which numerical bracket the average falls into.
+            <br><br>
+            <strong style="color:var(--red-bright);">Reflection:</strong> This activity showed me how to turn a school grading rubric into actual logic using boundary conditions. I also learned that using System.out.printf is a must for formatting averages so the output looks clean and professional for the user.
+          </p>
+          <div class="pdf-embed-wrap">
+            <div class="pdf-embed-header">
+              <span>ACTIVITY4.PDF</span>
+              <a href="files/activity4.pdf" target="_blank">[ OPEN ]</a>
+            </div>
+            <iframe src="files/activity4.pdf" width="100%" height="480px" style="border:none; display:block; background:#1a1a1a;">
+              <p style="padding:1rem; font-family:var(--font-mono); font-size:0.7rem; color:var(--white-dim);">
+                PDF cannot be displayed inline. <a href="files/activity4.pdf" target="_blank" style="color:var(--red-bright);">Download it here</a>.
+              </p>
+            </iframe>
+          </div>
+        </div>
+      </div>
+      
+      <br>
+
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Activity #5</span>
+          <span class="card-badge">PERSONAL EXPENSE TRACKER</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Explanation:</strong> This Java program tracks spending in categories like food and clothing to see if it fits within a set budget. It uses static methods like totalExp and budgetStatus to handle the math and give a quick summary of how much money is left.
+            <br><br>
+            <strong style="color:var(--red-bright);">Reflection:</strong> Building this taught me how to keep code organized by breaking it down into smaller, modular parts. I realized that using conditional logic to compare expenses against a budget is a great way to solve real-world money management problems with code.
+          </p>
+          <div class="pdf-embed-wrap">
+            <div class="pdf-embed-header">
+              <span>ACTIVITY5.PDF</span>
+              <a href="files/activity5.pdf" target="_blank">[ OPEN ]</a>
+            </div>
+            <iframe src="files/activity5.pdf" width="100%" height="480px" style="border:none; display:block; background:#1a1a1a;">
+              <p style="padding:1rem; font-family:var(--font-mono); font-size:0.7rem; color:var(--white-dim);">
+                PDF cannot be displayed inline. <a href="files/activity5.pdf" target="_blank" style="color:var(--red-bright);">Download it here</a>.
+              </p>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ <!-- EXAM TAB -->
+  <div class="tab-panel" id="midterm-exam">
+    <div class="row-layout">
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Midterm Exam</span>
+          <span class="card-badge">INTRODUCTION TO JAVA - OOP CONCEPTS</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc" style="text-align:justify; line-height:1.8;">
+            <strong style="color:var(--red-bright);">Reflection:</strong> The exam was quite challenging, specially the programming part. So, I hope that I get a passing score. Nevertheless, I was able to answer some questions I was confident with.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+</section>
+ 
+<hr class="sec-divider">
+
+<!-- FINAL -->
+<section id="final">
+  <div class="section-header">
+    <span class="section-num">// 02</span>
+    <h2 class="section-title">Finals</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('final', 'fquizzes', this)">Quizzes</button>
+    <button class="tab-btn" onclick="switchTab('final', 'fseatwork', this)">Seatwork</button>
+    <button class="tab-btn" onclick="switchTab('final', 'factivities', this)">Activities</button>
+    <button class="tab-btn" onclick="switchTab('final', 'fexam', this)">Exam</button>
+  </div>
+
+  <!-- FINAL QUIZZES -->
+  <div class="tab-panel active" id="final-fquizzes">
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Quiz Files</span>
+          <span class="card-badge">NOT YET AVAILABLE..</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">The quiz files for the Finals are not yet available. I will update this as soon as the finals have wrapped.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL SEATWORK -->
+  <div class="tab-panel" id="final-fseatwork">
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Seatwork Files</span>
+          <span class="card-badge">NOT YET AVAILABLE.</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">The seatwork files for the Finals are not yet available. I will update this as soon as the finals have wrapped.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL ACTIVITIES -->
+  <div class="tab-panel" id="final-factivities">
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Activity Files</span>
+          <span class="card-badge">NOT YET AVAILABLE.</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">The activity files for the Finals are not yet available. I will update this as soon as the finals have wrapped.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL EXAM -->
+  <div class="tab-panel" id="final-fexam">
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="card-header">
+          <span class="card-title">Exam Files</span>
+          <span class="card-badge">NOT YET AVAILABLE.</span>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">The exam files for the Finals are not yet available. I will update this as soon as the finals have wrapped.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sec-divider">
+
+  <!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">// 03</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-line"></div>
+  </div>
+ 
+  <div style="margin-bottom:2rem; max-width:500px;">
+    <p style="font-family:var(--font-mono); font-size:0.7rem; color:var(--white-dim); letter-spacing:0.1em; line-height:1.8;">
+      Feel free to reach out for any inquiries, collaborations, or feedback about my OOP portfolio.
+    </p>
+  </div>
+ 
+  <div class="contact-grid">
+    <div class="input-group">
+      <label class="input-label">Name</label>
+      <input type="text" class="input-field" placeholder="Your name">
+    </div>
+    <div class="input-group">
+      <label class="input-label">Email</label>
+      <input type="email" class="input-field" placeholder="your@email.com">
+    </div>
+    <div class="input-group full">
+      <label class="input-label">Subject</label>
+      <input type="text" class="input-field" placeholder="Subject">
+    </div>
+    <div class="input-group full">
+      <label class="input-label">Message</label>
+      <textarea class="notes-area" style="min-height:120px" placeholder="Your message..."></textarea>
+    </div>
+    <div class="input-group full" style="flex-direction:row; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+      <button class="btn-submit" onclick="submitForm()">[ SEND MESSAGE ]</button>
+      <div style="font-family:var(--font-mono); font-size:1rem; color:var(--white-faint); letter-spacing:0.1em;">
+        Or reach me at: <span style="color:var(--red-bright)">ajosejustingabriel@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <span class="foot-accent">©</span> <span>Justin Gabriel D. A Jose</span> · OOP E-Portfolio
+  </div>
+  <div style="font-family:var(--font-mono); font-size:0.55rem; letter-spacing:0.2em;">
+    <span>Object-Oriented Programming · Java · S.Y. 2025 - 2025</span>
+  </div>
+  <div>
+    <span class="foot-accent">STATUS:</span> ONLINE<span class="blink">_</span>
+  </div>
+</footer>
+
+<script>
+  // ======= NAV TOGGLE =======
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  // ======= TABS =======
+  function switchTab(section, panel, btn) {
+    const allBtns = btn.closest('.tab-bar').querySelectorAll('.tab-btn');
+    allBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const sectionEl = document.getElementById(section);
+    sectionEl.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(section + '-' + panel).classList.add('active');
+  }
+
+  // ======= DRAG EVENTS =======
+  function dragOver(e, zone) {
+    e.preventDefault();
+    zone.classList.add('dragover');
+  }
+
+  function dragLeave(zone) {
+    zone.classList.remove('dragover');
+  }
+
+  function dropFiles(e, key) {
+    e.preventDefault();
+    const zone = e.currentTarget;
+    zone.classList.remove('dragover');
+    const files = Array.from(e.dataTransfer.files);
+    processFiles(files, key);
+  }
+
+  function handleFiles(input, key) {
+    const files = Array.from(input.files);
+    processFiles(files, key);
+    input.value = '';
+  }
+
+  // ======= FILE PROCESSING =======
+  function processFiles(files, key) {
+    const imgGrid = document.getElementById('img-' + key);
+    const fileList = document.getElementById('files-' + key);
+
+    files.forEach(file => {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          addImageThumb(e.target.result, file.name, key, imgGrid);
+        };
+        reader.readAsDataURL(file);
+      } else if (file.type === 'application/pdf') {
+        addFileItem(file, key, fileList);
+      } else {
+        addFileItem(file, key, fileList);
+      }
+    });
+  }
+
+  function addImageThumb(src, name, key, grid) {
+    grid.classList.add('active');
+    const id = 'img-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+    const div = document.createElement('div');
+    div.className = 'img-thumb';
+    div.id = id;
+    div.innerHTML = `
+      <img src="${src}" alt="${name}" onclick="openLightbox('${src}')">
+      <button class="remove-img" onclick="removeEl('${id}')" title="Remove">✕</button>
+    `;
+    grid.appendChild(div);
+  }
+
+  function addFileItem(file, key, list) {
+    list.classList.add('active');
+    const id = 'file-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+    const size = formatSize(file.size);
+    const icon = file.type === 'application/pdf' ? '�"�' : '�"�';
+    const div = document.createElement('div');
+    div.className = 'file-preview-item';
+    div.id = id;
+
+    const url = URL.createObjectURL(file);
+    div.innerHTML = `
+      <div class="file-info">
+        <span class="file-icon">${icon}</span>
+        <span class="file-name" title="${file.name}">${file.name}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem;flex-shrink:0;">
+        <span class="file-size">${size}</span>
+        ${file.type === 'application/pdf' ? `<button class="btn-remove" onclick="openPDF('${url}','${id}')">[ VIEW ]</button>` : ''}
+        <button class="btn-remove" onclick="removeEl('${id}')">[ REMOVE ]</button>
+      </div>
+    `;
+    list.appendChild(div);
+  }
+
+  function formatSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB';
+    return (bytes/1048576).toFixed(1) + ' MB';
+  }
+
+  function removeEl(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  // ======= PDF VIEWER =======
+  function openPDF(url, parentId) {
+    const parent = document.getElementById(parentId);
+    let viewer = parent.nextElementSibling;
+    if (viewer && viewer.classList.contains('pdf-viewer')) {
+      viewer.remove();
+      return;
+    }
+    viewer = document.createElement('iframe');
+    viewer.className = 'pdf-viewer active';
+    viewer.src = url;
+    parent.after(viewer);
+  }
+
+  // ======= LIGHTBOX =======
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  // ======= CONTACT FORM =======
+  function submitForm() {
+    const btn = document.querySelector('.btn-submit');
+    const original = btn.textContent;
+    btn.textContent = '[ SENDING... ]';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = '[ MESSAGE SENT ]';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.disabled = false;
+      }, 2500);
+    }, 1200);
+  }
+
+  // ======= KEYBOARD SHORTCUT =======
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+</body>
+</html>
